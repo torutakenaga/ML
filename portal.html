@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LLMATCH PoC — NC・JIHSリトリート2026</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+  background: #f0f4f0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  max-width: 480px;
+  width: 100%;
+  overflow: hidden;
+}
+.card-header {
+  background: #2c4a3e;
+  padding: 20px 24px 16px;
+  text-align: center;
+}
+.card-header .badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  color: #a8d8b0;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  letter-spacing: 0.04em;
+}
+.card-header h1 {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+.card-header p {
+  color: #a8d8b0;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.card-body {
+  padding: 24px;
+}
+.section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #888;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 16px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.12s, box-shadow 0.12s;
+  margin-bottom: 12px;
+}
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+.btn:active { transform: translateY(0); }
+.btn-primary {
+  background: linear-gradient(135deg, #2c4a3e 0%, #3d6b5a 100%);
+  color: #fff;
+}
+.btn-secondary {
+  background: #f2f6f3;
+  color: #2c4a3e;
+  border: 1.5px solid #c0d8c8;
+}
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.btn-primary .btn-icon { background: rgba(255,255,255,0.15); }
+.btn-secondary .btn-icon { background: #dceee4; }
+.btn-text { flex: 1; text-align: left; }
+.btn-text strong { display: block; font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.btn-text span { font-size: 11px; opacity: 0.75; line-height: 1.4; }
+.btn-arrow { font-size: 16px; opacity: 0.5; }
+.divider {
+  height: 1px;
+  background: #eee;
+  margin: 16px 0;
+}
+.info-box {
+  background: #f8faf8;
+  border: 1px solid #dceee4;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 11px;
+  color: #4a6a5a;
+  line-height: 1.7;
+}
+.info-box strong { color: #2c4a3e; }
+.footer {
+  margin-top: 20px;
+  font-size: 10px;
+  color: #aaa;
+  text-align: center;
+  line-height: 1.8;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="card-header">
+    <div class="badge">NC・JIHSリトリート 2026</div>
+    <h1>研究利用を起点とした電子カルテ形式差の実態整理と、統一的取り扱い基盤の要件検討</h1>
+    <p>武長 徹¹ ほか｜LLMATCH PoC</p>
+  </div>
+
+  <div class="card-body">
+    <div class="section-title">リンク一覧</div>
+
+    <a class="btn btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSf5iIbvWMqgGxtsLN1W0PrdEF_VuhnQGme9Prgad94PSP2HqA/viewform?usp=header" target="_blank">
+      <div class="btn-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" fill="white" opacity="0"/>
+          <path d="M9 11H7v2h2v2h2v-2h2v-2h-2V9H9v2zM5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z" fill="white" opacity="0"/>
+          <rect x="4" y="4" width="16" height="3" rx="1.5" fill="white"/>
+          <rect x="4" y="9" width="16" height="2" rx="1" fill="white" opacity="0.7"/>
+          <rect x="4" y="13" width="12" height="2" rx="1" fill="white" opacity="0.7"/>
+          <rect x="4" y="17" width="8" height="2" rx="1" fill="white" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="btn-text">
+        <strong>専門医レビュー参加申込み</strong>
+        <span>合成データの医学的妥当性評価へのご協力をお願いしています</span>
+      </div>
+      <div class="btn-arrow">›</div>
+    </a>
+
+    <a class="btn btn-secondary" href="pmc_references.html" target="_blank">
+      <div class="btn-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="#2c4a3e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="#2c4a3e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="btn-text">
+        <strong>PMC収録論文一覧（118件）</strong>
+        <span>ラッサ熱・ハンタウイルス・チャパレウイルス 参照コーパス</span>
+      </div>
+      <div class="btn-arrow" style="color:#2c4a3e;">›</div>
+    </a>
+
+    <div class="divider"></div>
+
+    <div class="info-box">
+      <strong>研究概要：</strong>アレナウイルス感染症（ラッサ熱等）を対象に、LLMを用いた
+      合成電子カルテ生成と感染症発生届への自動変換パイプラインの概念実証（PoC）を実施。
+      完全合成データ使用。実患者情報は含みません。<br>
+      <strong>連絡先：</strong>takenaga.t@jihs.go.jp
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  NC・JIHSリトリート 2026｜国立健康危機管理研究機構 国立感染症研究所<br>
+  このページは発表資料のQRコード用です
+</div>
+
+</body>
+</html>
