@@ -1,0 +1,529 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.poster { width: 100%; font-family: var(--font-sans); background: #fff; border: 1.5px solid #222; }
+.header { display: grid; grid-template-columns: 140px 1fr 70px; border-bottom: 2px solid #222; }
+.header-num { border-right: 1.5px solid #222; padding: 6px 8px; }
+.header-num-top { font-size: 9px; color: #555; margin-bottom: 4px; }
+.header-num-badge { background: #c0392b; color: #fff; font-size: 9px; font-weight: 500; padding: 4px 6px; line-height: 1.4; text-align: center; }
+.header-center { padding: 10px 14px; border-right: 1.5px solid #222; }
+.header-center h1 { font-size: 16px; font-weight: 700; color: #111; line-height: 1.45; margin-bottom: 8px; }
+.header-center .authors { font-size: 12px; color: #222; margin-bottom: 4px; }
+.header-center .affil { font-size: 10px; color: #555; }
+.header-right { display: flex; align-items: center; justify-content: center; padding: 8px; }
+.glossary-strip { display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 2px solid #222; background: #2c4a3e; }
+.glossary-cell { padding: 8px 12px; border-right: 1px solid rgba(255,255,255,0.2); }
+.glossary-cell:last-child { border-right: none; }
+.glossary-term { font-size: 10.5px; font-weight: 700; color: #a8d8b0; margin-bottom: 3px; }
+.glossary-body { font-size: 9.5px; color: #d0e8d4; line-height: 1.6; }
+.glossary-body strong { color: #c8f0cc; font-weight: 600; }
+.row1 { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 2px solid #222; }
+.cell-haikei { border-right: 2px solid #222; background: #b5c9a8; padding: 12px 14px; }
+.cell-kadai { background: #b5c9a8; padding: 12px 14px; }
+.row2 { border-bottom: 2px solid #222; background: #b5c9a8; padding: 10px 14px; }
+.row3 { display: grid; grid-template-columns: 1fr 1.05fr 0.8fr; border-bottom: 2px solid #222; }
+.cell-approach { border-right: 2px solid #222; background: #b5c9a8; padding: 12px 14px; }
+.cell-right-stack { display: contents; }
+.cell-kensho { border-right: 2px solid #222; background: #b5c9a8; padding: 10px 12px; }
+.cell-matome { background: #b5c9a8; padding: 12px 14px; }
+.cell-sub-title { font-size: 12px; font-weight: 700; color: #111; margin: 8px 0 4px; padding-top: 6px; border-top: 1px solid rgba(0,0,0,0.18); }
+.panel-title { font-size: 12px; font-weight: 700; color: #111; margin-bottom: 5px; padding-bottom: 3px; border-bottom: 1px solid rgba(0,0,0,0.2); }
+.panel-body { font-size: 11px; color: #1a1a1a; line-height: 1.65; }
+.panel-body p { margin-bottom: 0.3rem; }
+.panel-body strong { font-weight: 600; }
+.ishida-box { background: rgba(255,255,255,0.45); border-left: 3px solid #5a8a5a; border-radius: 0 3px 3px 0; padding: 6px 9px; margin: 6px 0; font-size: 10.5px; color: #1a1a1a; line-height: 1.6; }
+.ishida-box-title { font-size: 10.5px; font-weight: 700; color: #1a4a2e; margin-bottom: 3px; }
+.ishida-results { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin: 4px 0; }
+.ishida-result-card { background: rgba(90,138,90,0.15); border-radius: 2px; padding: 3px 5px; font-size: 10px; text-align: center; }
+.ishida-result-model { font-size: 9px; color: #2d4a2d; }
+.ishida-result-acc { font-size: 12px; font-weight: 700; color: #1a4a2e; }
+.ishida-gap { margin-top: 4px; font-size: 10px; color: #5a3a00; background: rgba(255,220,100,0.25); border-radius: 2px; padding: 3px 5px; }
+.gap-arrow { text-align: center; font-size: 11px; color: #5a7a5a; margin: 3px 0; font-weight: 700; }
+.step { display: flex; gap: 6px; align-items: flex-start; margin-bottom: 0.6rem; }
+.step-num { min-width: 22px; height: 22px; border-radius: 50%; background: rgba(255,255,255,0.4); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #1a2e1a; border: 1px solid rgba(0,0,0,0.2); }
+.step-status-wip { display: inline-block; font-size: 8px; font-weight: 700; background: rgba(255,200,50,0.35); color: #6b4400; padding: 1px 5px; border-radius: 2px; margin-left: 4px; vertical-align: middle; }
+.step-status-done { display: inline-block; font-size: 8px; font-weight: 700; background: rgba(60,160,80,0.2); color: #1a5a2e; padding: 1px 5px; border-radius: 2px; margin-left: 4px; vertical-align: middle; }
+.step-status-plan { display: inline-block; font-size: 8px; font-weight: 700; background: rgba(180,180,180,0.3); color: #444; padding: 1px 5px; border-radius: 2px; margin-left: 4px; vertical-align: middle; }
+.track-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; margin: 5px 0; }
+.track-card { background: rgba(255,255,255,0.35); border-radius: 3px; padding: 5px 7px; font-size: 9.5px; color: #1a2e1a; border-top: 2px solid rgba(44,74,62,0.3); }
+.track-head { display: flex; align-items: baseline; gap: 4px; margin-bottom: 3px; }
+.track-label { font-weight: 700; color: #1a4a2e; font-size: 9.5px; }
+.track-role { font-size: 8px; font-weight: 700; background: #2c4a3e; color: #a8d8b0; padding: 1px 4px; border-radius: 2px; }
+.track-what { font-size: 9px; color: #1a4a2e; font-weight: 600; margin-bottom: 2px; }
+.track-how { font-size: 8.5px; color: #2d4a2d; line-height: 1.4; }
+.pmc-box { background: rgba(255,255,255,0.25); border-left: 2px solid rgba(0,60,0,0.3); border-radius: 0 2px 2px 0; padding: 4px 7px; margin-top: 4px; font-size: 10px; color: #1a2e1a; line-height: 1.55; }
+.pmc-box-title { font-size: 10px; font-weight: 700; margin-bottom: 2px; color: #1a4a2e; }
+.verified-box { background: rgba(255,255,255,0.35); border: 1px solid rgba(60,140,80,0.4); border-radius: 3px; padding: 5px 8px; margin-top: 4px; }
+.verified-box-title { font-size: 9.5px; font-weight: 700; color: #1a4a2e; margin-bottom: 3px; }
+.verified-flow { display: flex; align-items: center; gap: 4px; font-size: 9.5px; color: #1a2e1a; flex-wrap: wrap; }
+.verified-node { background: rgba(90,138,90,0.2); border-radius: 2px; padding: 2px 6px; font-size: 9px; font-weight: 600; color: #1a4a2e; }
+.verified-arrow { color: #5a8a5a; font-weight: 700; }
+.rubric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin: 4px 0; }
+.rubric-card { background: rgba(255,255,255,0.3); border-radius: 2px; padding: 3px 5px; }
+.rubric-cat { font-size: 9px; font-weight: 700; color: #1a4a2e; }
+.rubric-count { font-size: 9px; color: #2d4a2d; }
+.section-label { font-size: 10px; font-weight: 700; color: #fff; background: #2c4a3e; padding: 2px 7px; border-radius: 2px; display: inline-block; margin-bottom: 5px; }
+.section-label-2 { font-size: 10px; font-weight: 700; color: #fff; background: #3a5a70; padding: 2px 7px; border-radius: 2px; display: inline-block; margin-bottom: 5px; }
+.kensho-divider { border: none; border-top: 1px dashed rgba(0,0,0,0.2); margin: 6px 0; }
+.num-mini-card { background: rgba(255,255,255,0.35); border-radius: 2px; padding: 3px 5px; text-align: center; }
+.num-big { font-size: 15px; font-weight: 700; color: #1a2e1a; }
+.num-label { font-size: 8px; color: #2d4a2d; line-height: 1.3; }
+.symptom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 3px 0; }
+.symptom-row { display: flex; justify-content: space-between; font-size: 9px; color: #1a1a1a; padding: 1px 4px; background: rgba(255,255,255,0.2); border-radius: 1px; }
+.symptom-val { font-weight: 700; color: #1a4a2e; }
+.ehr-format { display: flex; align-items: center; gap: 3px; font-size: 8.5px; color: #1a2e1a; flex-wrap: wrap; margin: 3px 0; }
+.ehr-node { background: rgba(255,255,255,0.4); border-radius: 2px; padding: 1px 5px; font-size: 8.5px; color: #1a4a2e; font-weight: 600; }
+.ehr-arr { color: #5a8a5a; font-size: 8px; }
+.score-row { display: flex; justify-content: space-between; font-size: 9.5px; color: #1a1a1a; margin-bottom: 1px; }
+.s-hi { font-weight: 700; color: #1a4a2e; }
+.s-mid { font-weight: 700; color: #5a4000; }
+.s-lo { font-weight: 700; color: #8b1a1a; }
+.bench-box { background: rgba(255,255,255,0.3); border-left: 2px solid rgba(90,138,90,0.5); padding: 4px 7px; margin-top: 5px; font-size: 9px; color: #1a2e1a; line-height: 1.5; }
+.bench-title { font-size: 9px; font-weight: 700; color: #1a4a2e; margin-bottom: 2px; }
+.bench-row { display: flex; gap: 4px; margin-bottom: 2px; align-items: flex-start; }
+.bench-badge { font-size: 8px; font-weight: 700; background: rgba(90,138,90,0.2); color: #1a4a2e; padding: 1px 4px; border-radius: 2px; white-space: nowrap; margin-top: 1px; }
+.bench-badge-plan { font-size: 8px; font-weight: 700; background: rgba(255,200,50,0.3); color: #5a3a00; padding: 1px 4px; border-radius: 2px; white-space: nowrap; margin-top: 1px; }
+.issue { display: flex; gap: 4px; align-items: flex-start; margin-bottom: 2px; }
+.issue-dot { min-width: 14px; height: 14px; border-radius: 50%; background: rgba(180,50,30,0.2); font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #8b1a1a; margin-top: 1px; }
+.tag { display: inline-block; font-size: 9px; font-weight: 600; padding: 1px 5px; border-radius: 3px; margin: 1px 1px 0 0; }
+.tag-green { background: rgba(255,255,255,0.4); color: #1a4a2e; border: 0.5px solid rgba(0,80,0,0.3); }
+.tag-yellow { background: rgba(255,240,160,0.6); color: #5a3a00; border: 0.5px solid rgba(180,130,0,0.3); }
+.coi-box { background: rgba(255,255,255,0.3); border: 0.5px solid rgba(0,0,0,0.25); padding: 4px 5px; font-size: 9px; color: #1a2e1a; line-height: 1.5; text-align: center; }
+.coi-title { font-size: 10px; font-weight: 700; margin-bottom: 2px; }
+.boshu-list { list-style: none; margin: 6px 0; padding: 0; }
+.boshu-list li { font-size: 11px; color: #1a2e1a; padding: 3px 0 3px 16px; position: relative; line-height: 1.5; }
+.boshu-list li::before { content: "▶"; position: absolute; left: 0; font-size: 8px; color: #2d5a3a; top: 5px; }
+/* 参考文献セクション */
+.row-refs { border-top: 2px solid #222; background: #f2f4f0; display: grid; grid-template-columns: 1fr 150px; }
+.refs-col { padding: 7px 14px; }
+.coi-col { padding: 7px 10px; border-left: 1.5px solid #c0ccc0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
+.qr-placeholder { width:64px; height:64px; background:#fff; border:1.5px solid #4a7a5a; display:flex; align-items:center; justify-content:center; margin:0 auto; }
+.qr-label { font-size:8px; font-weight:700; color:#2c4a3e; text-align:center; margin-top:2px; }
+.refs-title { font-size: 10px; font-weight: 700; color: #1a2e1a; margin-bottom: 5px; padding-bottom: 3px; border-bottom: 1px solid #b0c0b0; letter-spacing: 0.03em; }
+.refs-list { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px 18px; }
+.ref-item { font-size: 8.5px; color: #222; line-height: 1.55; display: flex; gap: 5px; }
+.ref-num { color: #2c4a3e; font-weight: 700; min-width: 16px; flex-shrink: 0; }
+.ref-body { flex: 1; }
+.ref-body a { color: #1a4a8a; text-decoration: none; word-break: break-all; }
+.ref-body a:hover { text-decoration: underline; }
+.ref-note { font-size: 8px; color: #888; font-style: italic; }
+</style>
+
+<div class="poster">
+  <div class="header">
+    <div class="header-num">
+      <div class="header-num-top">演題名：</div>
+      <div class="header-num-badge">演題番号貼付場のため<br>入力しないでください</div>
+    </div>
+    <div class="header-center">
+      <div style="font-size:9px; color:#555; margin-bottom:4px;">演題名：</div>
+      <h1>研究利用を起点とした電子カルテ形式差の実態整理と、統一的取り扱い基盤の要件検討</h1>
+      <div class="authors">武長 徹¹、矢島 愛美²、森永 雄一朗、元谷 崇、小橋 洋平³</div>
+      <div class="affil">1. 国立健康危機管理研究機構 国立感染症研究所、2. 鶴見大学 歯学部 歯科麻酔学講座、3. 東京大学</div>
+    </div>
+    <div class="header-right">
+      <svg width="48" height="48" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="28" fill="none" stroke="#c0392b" stroke-width="3"/>
+        <circle cx="30" cy="30" r="10" fill="#c0392b"/>
+        <line x1="30" y1="2" x2="30" y2="58" stroke="#c0392b" stroke-width="2.5"/>
+        <line x1="2" y1="30" x2="58" y2="30" stroke="#c0392b" stroke-width="2.5"/>
+        <text x="30" y="52" text-anchor="middle" font-size="8" font-weight="700" fill="#c0392b">JIHS</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="glossary-strip">
+    <div class="glossary-cell">
+      <div class="glossary-term">アレナウイルス感染症とは</div>
+      <div class="glossary-body">
+        Arenaviridae科 Mammarenavirus属の<strong>エンベロープ付き1本鎖RNAウイルス（BSL-4）</strong>。自然宿主は齧歯類（マウス・ラットの仲間）で、感染動物の排泄物を通じてヒトに感染する人獣共通感染症。<strong>出血熱を呈し、ヒトーヒト二次感染も起こす</strong>。発熱・全身倦怠感・出血傾向が主症状で、治療薬は<strong>リバビリン</strong>。地理的分布から「旧世界型」「新世界型」に大別される。
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:3px 6px; margin-top:4px;">
+          <div style="background:rgba(255,255,255,0.18); border-left:2px solid #a8d8b0; padding:3px 5px;">
+            <div style="font-size:9.5px; font-weight:700; color:#c8f0cc; margin-bottom:2px;">旧世界型（アフリカ）</div>
+            <div><strong style="color:#e0f4e0;">ラッサ熱</strong> — 西アフリカ（ナイジェリア等）。自然宿主：<em>Mastomys natalensis</em>。後遺症として<strong>感音性難聴</strong>が知られる。</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.18); border-left:2px solid #a8d8b0; padding:3px 5px;">
+            <div style="font-size:9.5px; font-weight:700; color:#c8f0cc; margin-bottom:2px;">新世界型（南米）</div>
+            <div><strong style="color:#e0f4e0;">チャパレウイルス感染症</strong> — ボリビア。自然宿主：<em>Calomys callosus</em>。2003年に初確認。国内・国際的にも報告症例は極めて少ないが、致死率が高く一類感染症に指定。</div>
+          </div>
+        </div>
+        <div style="margin-top:3px; font-size:9px; color:#c8f0cc;">いずれも<strong style="color:#ffd0a0;">一類感染症</strong>（感染症法）。※本研究のPMC文献コーパスには<strong style="color:#ffd0a0;">ハンタウイルス</strong>（四類）症例も含む——アレナウイルスと同じく齧歯類媒介の輸入出血熱であり、<strong>カルテ上の症状記述・症例テキスト構造が類似</strong>することから、EHRのテキストバリエーション拡充のみを目的として参照。届出様式の類似を意味しない。</div>
+      </div>
+    </div>
+    <div class="glossary-cell">
+      <div class="glossary-term">LLM（大規模言語モデル）とは</div>
+      <div class="glossary-body"><strong>Large Language Model</strong>の略。膨大なテキストデータで学習し、文章の理解・生成・変換・要約を行うAI。利用形態は大きく2種類に分かれる。<strong>クラウド型</strong>（ChatGPT・Claude・Geminiなど）はAPI経由で高性能なモデルを利用できる一方、患者データをクラウドへ送信するため医療情報の取り扱いに制約が生じる。<strong>ローカル型</strong>はモデルを院内サーバや手元のPCで動作させるため、データが外部へ出ず個人情報保護の観点で有利。本研究PoCの構造化変換（ステップ②）では<strong>Qwen3.5-9B（ローカル推論）</strong>を採用し、Phase 1-2の情報抽出・分類を担当、Phase 3のJSON組み立てはPythonで実施。出力品質の評価には<strong>Gemini（評価エンジン）</strong>を使用。追加学習なし・プロンプトエンジニアリングのみで高い構造妥当性（5/5）を達成。今後はクローズドLLM（Gemini等）との定量比較を予定。</div>
+    </div>
+    <div class="glossary-cell">
+      <div class="glossary-term">感染症発生届とは（医師の法的義務）</div>
+      <div class="glossary-body">感染症法に基づき、医師は特定感染症の診断時に<strong>都道府県知事への届出が法的義務</strong>。届出情報は保健所→都道府県→国（NIID）へ伝達されサーベイランスに活用。現状は手書き・FAXが多く転記ミス・遅延が課題。本研究はこの届出を電子カルテから<strong>自動生成</strong>することを目指す。<br><strong style="color:#f0c8a0;">⚑ 一類感染症の特則：</strong>「確定診断」を待たず、<strong>「疑い」と判断した時点でただちに届出義務が発生</strong>（感染症法第12条）。転帰確定前・検査結果待ちの段階でも届出が必要であり、電子カルテ上の早期記録がそのまま届出根拠となる。<br><span style="font-size:8.5px; color:#e0d0a0;">▶ 本システムの設計上の対応：パイプラインは「疑い記載時点のカルテ（初診時所見・初期検査値のみ）」を入力として届出JSONを生成する。確定診断後の追記は含まない。</span></div>
+    </div>
+  </div>
+
+  <div class="row1">
+    <div class="cell-haikei">
+      <div class="panel-title">背景</div>
+      <div class="panel-body">
+        <p>LLMによる診療記録の自動抽出・構造化技術が急速に進展し、臨床文書を研究データへ変換する基盤が現実のものとなりつつある。</p>
+        <div class="ishida-box">
+          <div class="ishida-box-title">先行研究：Ishida et al., NPJ Precis Oncol, 2025（PMID: 41261201）</div>
+          <p style="font-size:10px; margin-bottom:4px;">京都大学病院の婦人科がん病理レポート951件を対象に、<strong>ファインチューニングなし・プロンプトエンジニアリングのみ</strong>でLLMによるTNMステージ自動抽出を実証。人手入力エラー率5.5〜17.0%を大幅に下回る精度を達成。</p>
+          <div class="ishida-results">
+            <div class="ishida-result-card"><div class="ishida-result-model">Gemini 1.5（クラウド）</div><div class="ishida-result-acc">T: 99.4%</div><div class="ishida-result-acc">N: 99.3%</div></div>
+            <div class="ishida-result-card"><div class="ishida-result-model">Qwen2.5-72B（ローカル）</div><div class="ishida-result-acc">T: 97.1%</div><div class="ishida-result-acc">N: 92.3%</div></div>
+          </div>
+          <div class="ishida-gap">⚠ 限界：単施設・実患者データ・セキュアインフラが前提。感染症領域・多施設展開・「実データなし開発」は未解決。</div>
+        </div>
+        <div class="gap-arrow">↓ 本研究が取り組む課題</div>
+        <p>電子カルテの感染症サーベイランスへの二次利用需要が急増するなか、<strong>石田らの実証を起点に</strong>、合成データで「実データ不要の開発サイクル」を構築し、アレナウイルス感染症の発生届自動変換基盤を開発する。</p>
+      </div>
+    </div>
+    <div class="cell-kadai">
+      <div class="panel-title">課題</div>
+      <div class="panel-body">
+        <p><strong>① データ形式の多様性</strong><br>CSV・独自XML・HL7 v2・CDA・FHIR・SS-MIX2が混在。規格が同一でも施設ごとに項目名・コード・単位が異なり、前処理コストが研究利用の最大の障壁となっている。</p>
+        <p style="margin-top:5px;"><strong>② 開発初期の「検証の壁」</strong><br>個人情報保護上の制約から実データ利用は制限され、セキュア環境の構築コストも高い。「実データなしでは検証できない」という構造的ジレンマが現場主導のAI開発を阻害している。</p>
+        <p style="margin-top:5px;"><strong>③ 感染症届出領域への未展開</strong><br>石田らの実証はがん登録（TNM分類）に特化しており、感染症法に基づく発生届（様式第1号）への構造化変換は未検討のままである。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row2">
+    <div class="panel-title">目的</div>
+    <div class="panel-body" style="display:grid; grid-template-columns: 1.3fr 1fr; gap: 10px;">
+      <div>
+        <p>アレナウイルス感染症（ラッサ熱等）を対象として、自由記述の電子カルテから<strong>感染症発生届（感染症法様式第1号）への自動変換パイプライン</strong>を構築し、概念実証（PoC）を実施する。</p>
+        <p style="margin-top:4px;">使用データはLLMにより生成した<strong>完全な合成データ</strong>であり、実在する患者情報は一切含まない（倫理委員会への照会のうえ手続き中）。</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.22); border-left:2px solid rgba(0,0,0,0.18); padding:5px 8px;">
+        <p style="font-size:10px; font-weight:700; margin-bottom:3px;">将来的なマイルストーン</p>
+        <p style="font-size:10px;">全数把握対象 87疾患への拡張 → HL7 FHIR対応 → 国際感染症ネットワーク（GOARN等）への展開を視野に技術要件を明らかにする。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row3">
+    <div class="cell-approach">
+      <div class="panel-title">開発アプローチ</div>
+      <div class="panel-body">
+        <p style="margin-bottom:5px;">自動届出パイプラインを<strong>3ステップ</strong>で構築する。現在①②はそれぞれ独立して進行中。</p>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div style="width:100%">
+            <strong>合成EHR生成</strong><span class="step-status-wip">3軌道 並行開発中</span>
+            <div class="track-grid" style="margin-top:5px;">
+              <div class="track-card">
+                <div class="track-head">
+                  <span class="track-label">Track A</span>
+                  <span class="track-role">生成</span>
+                </div>
+                <div class="track-what">条件指定→EHR自動作成</div>
+                <div class="track-how">患者背景・重症度・感染経路などをGUIで指定し、<strong>Claude Sonnet API（クラウド）</strong>に自由記述EHRテキストを一括生成させるツール。合成データのため実患者情報は含まない。</div>
+              </div>
+              <div class="track-card">
+                <div class="track-head">
+                  <span class="track-label">Track B</span>
+                  <span class="track-role">構造定義・検証</span>
+                </div>
+                <div class="track-what">記録項目の定義と品質保証</div>
+                <div class="track-how">ラッサ熱EHRに必要な記録項目（9カテゴリ・一類感染症4要件含む）を定義し、生成EHRが正しく情報を含むか自動検証</div>
+              </div>
+              <div class="track-card">
+                <div class="track-head">
+                  <span class="track-label">Track C</span>
+                  <span class="track-role">多様性設計</span>
+                </div>
+                <div class="track-what">症例の偏りをなくす</div>
+                <div class="track-how">重症度・合併症・転帰・患者背景など14軸63パターンを体系設計し、カバレッジの抜けを埋める症例を追加生成</div>
+              </div>
+            </div>
+            <div class="pmc-box" style="margin-top:5px;">
+              <div class="pmc-box-title">＋ PMC公開ケースレポートによる品質向上</div>
+              NCBI/PMC APIでCC BY論文157件を取得。<strong>ラッサ熱（50件）</strong>に加え、同じく<strong>齧歯類を自然宿主とするハンタウイルス（106件）</strong>のケースレポートも参照し、発熱・出血傾向・腎症状など共通する臨床記述パターン・症状頻度統計・薬剤記述テンプレートをプロンプトに反映。
+              <div style="margin-top:3px;"><span class="tag tag-green">統計参照 ✅</span><span class="tag tag-green">文体参照 ✅</span><span class="tag tag-yellow">原文転用 ❌</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div style="width:100%">
+            <strong>LLM構造化変換（Qwen3.5-9B・ローカル推論）</strong><span class="step-status-done">検証済み・①とは独立</span>
+            <p style="font-size:9.5px; margin: 3px 0;">3フェーズ処理：Phase 1（臨床情報抽出 / LLM）→ Phase 2（FHIR資源分類 / LLM）→ Phase 3（JSON組み立て / Python）。数値の原文照合・IDドロップ差分チェック・フェーズ別ログを実装。</p>
+            <div class="verified-box">
+              <div class="verified-box-title">検証：公開症例を使ったEnd-to-End変換テスト</div>
+              <div class="verified-flow">
+                <span class="verified-node">原著症例テキスト</span>
+                <span class="verified-arrow">→</span>
+                <span class="verified-node">Qwen3.5-9B<br><span style="font-size:7.5px;">Ph1・Ph2</span></span>
+                <span class="verified-arrow">→</span>
+                <span class="verified-node">Python<br><span style="font-size:7.5px;">Ph3 JSON</span></span>
+                <span class="verified-arrow">→</span>
+                <span class="verified-node">FHIR Bundle</span>
+              </div>
+              <p style="font-size:9px; margin-top:4px; color:#2d4a2d;">入力：Saidu et al., Oxford Med Case Rep 2025（omaf275）― ラッサ熱後感音性難聴ケースレポート。①の合成EHRとは独立した公開臨床テキストで変換精度を検証。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div>
+            <strong>臨床医レビュー</strong><span class="step-status-plan">今後実施予定</span><br>
+            4次元21項目の品質評価ルーブリックに基づき専門医が医学的妥当性を検証。
+            <div class="rubric-grid" style="margin-top:3px;">
+              <div class="rubric-card"><div class="rubric-cat">臨床的整合性</div><div class="rubric-count">5項目</div></div>
+              <div class="rubric-card"><div class="rubric-cat">法的整合性（一類）</div><div class="rubric-count">6項目</div></div>
+              <div class="rubric-card"><div class="rubric-cat">届出情報充足度</div><div class="rubric-count">5項目</div></div>
+              <div class="rubric-card"><div class="rubric-cat">バリエーション充足度</div><div class="rubric-count">5項目</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cell-right-stack">
+      <div class="cell-kensho">
+        <div class="panel-title">検証結果</div>
+        <div class="panel-body">
+
+          <div class="section-label">① 合成EHR生成</div>
+
+          <!-- 生成症例内訳 -->
+          <div style="font-size:9px; font-weight:700; color:#1a4a2e; margin-bottom:3px;">生成症例（計13件 #001〜#013）</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:3px; margin-bottom:4px;">
+            <div class="num-mini-card" style="border-top:2px solid rgba(44,74,62,0.4);">
+              <div class="num-big">4件</div>
+              <div class="num-label">手動生成<br>#001〜#004<br><span style="font-size:7.5px;">難ケース設計（妊婦・院内・遅延・死亡）</span></div>
+            </div>
+            <div class="num-mini-card" style="border-top:2px solid rgba(44,74,62,0.4);">
+              <div class="num-big">9件</div>
+              <div class="num-label">Track A 一括生成<br>#005〜#013<br><span style="font-size:7.5px;">条件指定→LLM自動生成ツール</span></div>
+            </div>
+          </div>
+
+          <!-- EHR形式 -->
+          <div style="font-size:8.5px; color:#2d4a2d; margin-bottom:2px;"><strong>EHR形式（9カテゴリ）：</strong></div>
+          <div class="ehr-format" style="margin-bottom:5px;">
+            <span class="ehr-node">患者基本</span><span class="ehr-arr">→</span>
+            <span class="ehr-node">渡航・曝露</span><span class="ehr-arr">→</span>
+            <span class="ehr-node">臨床経過</span><span class="ehr-arr">→</span>
+            <span class="ehr-node">バイタル</span><span class="ehr-arr">→</span>
+            <span class="ehr-node">検査値</span><span class="ehr-arr">→</span>
+            <span class="ehr-node">診断（疑い）</span><span class="ehr-arr">→</span>
+            <span class="ehr-node" style="background:rgba(180,50,30,0.15); color:#7a1a1a; font-weight:700;">届出〔即時義務〕</span><span class="ehr-arr">→</span>
+            <span class="ehr-node">治療</span><span class="ehr-arr">→</span>
+            <span class="ehr-node">転帰</span>
+          </div>
+
+          <!-- 評価系の構成 -->
+          <div style="background:rgba(255,255,255,0.3); border-radius:3px; padding:4px 7px; margin-bottom:5px; font-size:8.5px; color:#1a2e1a; border-left:2px solid #2c4a3e;">
+            <div style="font-weight:700; color:#1a4a2e; margin-bottom:2px;">評価系の構成</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:3px;">
+              <div style="background:rgba(60,160,80,0.15); border-radius:2px; padding:2px 4px;">
+                <div style="font-weight:700; color:#1a5a2e;">自動①：Pydantic</div>
+                <div>スキーマ構造検証<br>13件×20項目</div>
+                <div style="font-weight:700; color:#1a5a2e;">✅ 全通過</div>
+              </div>
+              <div style="background:rgba(60,160,80,0.15); border-radius:2px; padding:2px 4px;">
+                <div style="font-weight:700; color:#1a5a2e;">自動②：キーワード</div>
+                <div>法的要件・EHR形式の記載確認</div>
+                <div style="font-weight:700; color:#1a5a2e;">✅ 実施済み</div>
+              </div>
+              <div style="background:rgba(180,180,180,0.2); border-radius:2px; padding:2px 4px;">
+                <div style="font-weight:700; color:#5a5a5a;">手動：専門医レビュー</div>
+                <div>臨床的整合性・法的整合性の質的評価</div>
+                <div style="font-weight:700; color:#8b5a00;">⏳ ステップ③で実施予定</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- スキーマ検証20項目 -->
+          <div style="font-size:9px; font-weight:700; color:#1a4a2e; margin-bottom:2px;">Track B スキーマ検証：20項目 × 13件 全通過（100%）</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:3px; margin-bottom:4px;">
+            <div style="background:rgba(255,255,255,0.3); border-radius:2px; padding:4px 6px;">
+              <div style="font-size:8px; font-weight:700; color:#1a4a2e; margin-bottom:2px;">基本13項目（全症例共通）</div>
+              <div style="font-size:7.5px; color:#2d4a2d; line-height:1.55;">
+                患者ID・年齢・性別・職業<br>
+                発症日・Day別経過記録<br>
+                バイタルサイン・検査値<br>
+                疾患名（ラッサ熱）・ICD-10（A96.2）<br>
+                重症度分類・届出分類（一類）・届出タイミング
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,0.3); border-radius:2px; padding:4px 6px;">
+              <div style="font-size:8px; font-weight:700; color:#1a4a2e; margin-bottom:2px;">難ケース固有7項目</div>
+              <div style="font-size:7.5px; color:#2d4a2d; line-height:1.55;">
+                渡航歴と国内発症の整合性<br>
+                国内発症フラグ（#007 院内感染）<br>
+                妊娠フラグ・妊娠週数（#004）<br>
+                DICフラグ（#004）<br>
+                届出遅延理由（遅延症例のみ）<br>
+                死因記入（死亡症例のみ）<br>
+                後遺症記入（#008・#010 難聴）
+              </div>
+            </div>
+          </div>
+
+          <!-- バリエーション14軸 -->
+          <div style="font-size:9px; font-weight:700; color:#1a4a2e; margin-bottom:2px;">Track C バリエーション設計：14軸 × 63値</div>
+          <div style="background:rgba(255,255,255,0.28); border-radius:2px; padding:3px 6px; font-size:7.5px; color:#2d4a2d; line-height:1.8; margin-bottom:4px;">
+            年齢層×6・渡航先×6・感染経路×7・合併症×7・重症度×4・出血症状×3・難聴後遺症×3・診断確定×3・届出タイミング×5・入院区分×3・施設種別×4・転帰×5・遅延理由×5・性別×2
+          </div>
+
+          <!-- 矢印：PMCで品質向上 -->
+          <div style="text-align:center; font-size:10px; color:#2c4a3e; font-weight:700; margin:4px 0; letter-spacing:0.02em;">
+            ↓ PMC公開ケースレポートで品質向上
+          </div>
+
+          <!-- PMCコーパス -->
+          <div style="background:rgba(255,255,255,0.35); border-left:3px solid #2c4a3e; border-radius:0 3px 3px 0; padding:4px 8px; font-size:9px; color:#2d4a2d; line-height:1.55;">
+            <strong>参照コーパス（PMC OA・CC BY）157症例セクション：</strong>ラッサ熱 50件・ハンタウイルス 106件・チャパレウイルス 1件（うち148件翻訳・チャート化完了）。統計参照・文体参照のみ、原文転用なし。
+          </div>
+
+          <hr class="kensho-divider">
+
+          <div class="section-label-2">② LLM構造化変換（予備的）</div>
+          <p style="font-size:9px; color:#2d4470; margin-bottom:3px;">Oxford症例（Saidu et al.）を入力。Geminiを評価エンジンとし原文との整合性を確認：</p>
+          <div class="score-row"><span>原文情報の網羅性（抜け漏れなし）</span><span class="s-hi">5/5</span></div>
+          <div class="score-row"><span>時系列・経過記述の整合性</span><span class="s-hi">5/5</span></div>
+          <div class="score-row"><span>創作値・根拠なき推定の少なさ</span><span class="s-hi">5/5</span></div>
+          <div class="score-row"><span>FHIR R4 構造妥当性</span><span class="s-hi">5/5</span></div>
+          <div class="score-row"><span>ドメイン情報保持</span><span class="s-mid">3/5</span></div>
+          <div class="score-row"><span><strong>重要情報欠損リスク ⚠</strong></span><span class="s-lo">2/5</span></div>
+          <p style="font-size:8.5px; color:#5a3a00; margin-top:2px;">※漏れた3情報：①「ラッサ熱除外目的」という医師の思考プロセス（除外文脈のFHIRマッピング未対応）、②「PTA未実施」という検査空白の事実表現、③退院時複数薬剤名の分割抽出失敗。正式FHIR検証（LOINC/SNOMED等）は未実施。</p>
+          <div class="bench-box">
+            <div class="bench-title">今後の評価強化方針（計画）</div>
+            <div class="bench-row"><span class="bench-badge">参照予定</span><span>FHIR Workbench（JMIR 2025）― 査読済み・Qwen2.5含む</span></div>
+            <div class="bench-row"><span class="bench-badge">参照予定</span><span>FHIR-GPT（Northwestern 2023）― 人手正解との比較</span></div>
+            <div class="bench-row"><span class="bench-badge-plan">検討中</span><span>Infherno（EACL 2026）― E2E FHIR生成評価</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="cell-matome">
+        <div class="panel-title">まとめ</div>
+        <div class="panel-body">
+          <p style="font-size:9.5px; font-weight:700; color:#1a4a2e; margin-bottom:3px;">① 合成EHR生成</p>
+          <p>✓ Claude Sonnet APIで9件一括生成・14軸×63値のバリエーション設計・PMC 157件参照基盤を構築</p>
+          <p>✓ スキーマ・キーワード自動検証：13症例・20項目 全通過（100%）<span style="font-size:8.5px; color:#8b5a00;">※手動専門医レビューは未実施</span></p>
+          <div class="issue"><div class="issue-dot" style="background:rgba(44,74,62,0.15); color:#2c4a3e;">→</div><span>合成データの現実制約強化：施設種別等に非現実的な組み合わせが混在しうる。SFT・DPO等による感染症法的制約の内在化を今後検討。</span></div>
+          <div class="issue"><div class="issue-dot" style="background:rgba(44,74,62,0.15); color:#2c4a3e;">→</div><span>生成出力をQwen等のSFT訓練データへ転用する場合、生成モデルの利用規約（競合モデル訓練制限）の確認が必要。</span></div>
+
+          <p style="font-size:9.5px; font-weight:700; color:#1a4a2e; margin:6px 0 3px;">② LLM構造化変換</p>
+          <p>✓ 公開症例（Oxford OMCR）を入力とした構造化変換の動作を確認（②単独検証）</p>
+          <div class="issue"><div class="issue-dot" style="background:rgba(44,74,62,0.15); color:#2c4a3e;">→</div><span>重要情報欠損リスク（2/5）の克服：除外文脈・未実施事実・複数薬剤名の分割抽出への対応（プロンプト改善・処理ロジック拡充）。</span></div>
+          <div class="issue"><div class="issue-dot" style="background:rgba(44,74,62,0.15); color:#2c4a3e;">→</div><span>既存ベンチマーク（FHIR Workbench等）への適合検証。</span></div>
+
+          <p style="font-size:9.5px; font-weight:700; color:#1a4a2e; margin:6px 0 3px;">①②統合・次フェーズ</p>
+          <div class="issue"><div class="issue-dot" style="background:rgba(44,74,62,0.15); color:#2c4a3e;">→</div><span>合成EHR（①）と構造化変換（②）の統合・End-to-End検証および臨床医レビュー（ステップ③）の実施。</span></div>
+        </div>
+
+        <div class="cell-sub-title">謝辞</div>
+        <div class="panel-body" style="font-size:9.5px;">
+          <p>LLMATCHプロジェクトにご協力いただいた有志メンバーおよびオープンソース開発コミュニティの皆様に深く感謝いたします。</p>
+        </div>
+
+        <div class="cell-sub-title">参加者募集</div>
+        <div class="panel-body">
+          <p>合成データの医学的妥当性評価（ステップ③）にご協力いただける方を探しています：</p>
+          <ul class="boshu-list">
+            <li>感染症専門医・感染症内科医</li>
+            <li>感染症を日常診療で診る臨床医（内科・小児科・救急 等）</li>
+            <li>感染症サーベイランス・公衆衛生に携わる方</li>
+          </ul>
+          <div style="display:grid; grid-template-columns:64px 64px; gap:8px; margin-top:6px;">
+            <div style="text-align:center;">
+              <div style="width:64px; height:64px; background:#fff; border:1.5px solid #4a7a5a; display:flex; align-items:center; justify-content:center;">
+                <svg width="52" height="52" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="2" width="20" height="20" fill="none" stroke="#2c4a3e" stroke-width="2"/><rect x="6" y="6" width="12" height="12" fill="#2c4a3e"/>
+                  <rect x="30" y="2" width="20" height="20" fill="none" stroke="#2c4a3e" stroke-width="2"/><rect x="34" y="6" width="12" height="12" fill="#2c4a3e"/>
+                  <rect x="2" y="30" width="20" height="20" fill="none" stroke="#2c4a3e" stroke-width="2"/><rect x="6" y="34" width="12" height="12" fill="#2c4a3e"/>
+                  <rect x="30" y="30" width="4" height="4" fill="#2c4a3e"/><rect x="36" y="30" width="4" height="4" fill="#2c4a3e"/><rect x="42" y="30" width="8" height="4" fill="#2c4a3e"/>
+                  <rect x="30" y="36" width="4" height="4" fill="#2c4a3e"/><rect x="36" y="36" width="8" height="4" fill="#2c4a3e"/>
+                  <rect x="30" y="42" width="8" height="4" fill="#2c4a3e"/><rect x="40" y="42" width="4" height="4" fill="#2c4a3e"/>
+                </svg>
+              </div>
+              <div style="font-size:8px; color:#2c4a3e; margin-top:2px; font-weight:700;">参加申込み</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="width:64px; height:64px; background:#fff; border:1.5px solid #4a7a5a; display:flex; align-items:center; justify-content:center;">
+                <svg width="52" height="52" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="2" width="20" height="20" fill="none" stroke="#2c4a3e" stroke-width="2"/><rect x="6" y="6" width="12" height="12" fill="#2c4a3e"/>
+                  <rect x="30" y="2" width="20" height="20" fill="none" stroke="#2c4a3e" stroke-width="2"/><rect x="34" y="6" width="12" height="12" fill="#2c4a3e"/>
+                  <rect x="2" y="30" width="20" height="20" fill="none" stroke="#2c4a3e" stroke-width="2"/><rect x="6" y="34" width="12" height="12" fill="#2c4a3e"/>
+                  <rect x="30" y="30" width="4" height="4" fill="#2c4a3e"/><rect x="38" y="30" width="4" height="4" fill="#2c4a3e"/>
+                  <rect x="34" y="34" width="4" height="4" fill="#2c4a3e"/><rect x="42" y="34" width="8" height="4" fill="#2c4a3e"/>
+                  <rect x="30" y="38" width="8" height="4" fill="#2c4a3e"/><rect x="42" y="38" width="4" height="4" fill="#2c4a3e"/>
+                  <rect x="30" y="44" width="4" height="4" fill="#2c4a3e"/><rect x="36" y="44" width="12" height="4" fill="#2c4a3e"/>
+                </svg>
+              </div>
+              <div style="font-size:8px; color:#2c4a3e; margin-top:2px; font-weight:700;">収録論文一覧</div>
+            </div>
+          </div>
+          <p style="font-size:9px; color:#1a2e1a; margin-top:4px;">ポスター前でお声がけいただくか、QRコードよりご連絡・文献一覧をご確認ください。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 参考文献 + COI -->
+  <div class="row-refs">
+    <div class="refs-col">
+    <div class="refs-title">参考文献</div>
+    <div class="refs-list">
+      <div class="ref-item">
+        <span class="ref-num">[1]</span>
+        <span class="ref-body">
+          Ishida S, et al. Large language models for automated staging of gynecologic cancer pathology reports. <em>NPJ Precis Oncol.</em> 2025; PMID: 41261201.<br>
+          <a href="https://doi.org/10.1038/s41698-025-01157-4" target="_blank">https://doi.org/10.1038/s41698-025-01157-4</a>
+        </span>
+      </div>
+      <div class="ref-item">
+        <span class="ref-num">[2]</span>
+        <span class="ref-body">
+          Saidu SA, et al. Lassa fever presenting with sensorineural hearing loss: a case report. <em>Oxford Med Case Rep.</em> 2025; omaf275.<br>
+          <a href="https://doi.org/10.1093/omcr/omaf275" target="_blank">https://doi.org/10.1093/omcr/omaf275</a>
+        </span>
+      </div>
+      <div class="ref-item">
+        <span class="ref-num">[3]</span>
+        <span class="ref-body">
+          Ye C, et al. FHIR-GPT: An LLM for Transforming Unstructured EHR Data to HL7 FHIR. <em>arXiv.</em> 2023; arXiv:2310.12989.<br>
+          <a href="https://arxiv.org/abs/2310.12989" target="_blank">https://arxiv.org/abs/2310.12989</a>
+        </span>
+      </div>
+      <div class="ref-item">
+        <span class="ref-num">[4]</span>
+        <span class="ref-body">
+          FHIR Workbench: Benchmarking Large Language Models for FHIR Resource Generation. <em>JMIR Med Inform.</em> 2025.<br>
+          <a href="https://www.jmir.org/2025/1/e73540/" target="_blank">https://www.jmir.org/2025/1/e73540/</a>
+        </span>
+      </div>
+      <div class="ref-item">
+        <span class="ref-num">[5]</span>
+        <span class="ref-body">
+          Infherno: End-to-end Agent-based FHIR Resource Synthesis. <em>EACL.</em> 2026.<br>
+          <a href="https://aclanthology.org/2026.eacl-demo.13/" target="_blank">https://aclanthology.org/2026.eacl-demo.13/</a>
+        </span>
+      </div>
+      <div class="ref-item">
+        <span class="ref-num">[6]</span>
+        <span class="ref-body">
+          NCBI PMC Open Access Subset（CC BY）― 参照コーパス（ラッサ熱 33件・ハンタウイルス 84件・チャパレウイルス 1件、計118論文 / 157症例セクション）.<br>
+          <a href="pmc_references.html" target="_blank">▶ 収録論文一覧（118件）を開く</a>
+          <span style="font-size:8px; color:#888; margin-left:6px;">— 同フォルダの pmc_references.html</span>
+        </span>
+      </div>
+    </div>
+    </div><!-- /refs-col -->
+    <div class="coi-col">
+      <div class="coi-box">
+        <div class="coi-title">NC・JIHSリトリート<br>COI開示</div>
+        <div style="margin-top:4px;">演題発表者：武長 徹</div>
+        <div style="margin-top:4px;">私は今日の演題に関して、<br>開示すべきCOIはありません。</div>
+      </div>
+    </div><!-- /coi-col -->
+  </div>
+
+</div>
